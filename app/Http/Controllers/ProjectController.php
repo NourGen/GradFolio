@@ -50,7 +50,7 @@ class ProjectController extends Controller
             'github_url'    => 'nullable|url|max:2048',
             'cover_image'   => 'nullable|file|mimes:jpg,jpeg,png,webp|max:10240',
             'gallery'       => 'nullable|array|max:20',
-            'gallery.*'     => 'file|mimes:jpg,jpeg,png,webp|max:10240',
+            'gallery.*'     => 'file|mimes:jpg,jpeg,png,webp,pdf|max:10240',
             'gallery_alt'   => 'nullable|array',
             'gallery_alt.*' => 'nullable|string|max:255',
         ]);
@@ -121,7 +121,7 @@ class ProjectController extends Controller
             'github_url'    => 'nullable|url|max:2048',
             'cover_image'   => 'nullable|file|mimes:jpg,jpeg,png,webp|max:10240',
             'gallery'       => 'nullable|array|max:20',
-            'gallery.*'     => 'file|mimes:jpg,jpeg,png,webp|max:10240',
+            'gallery.*'     => 'file|mimes:jpg,jpeg,png,webp,pdf|max:10240',
             'gallery_alt'   => 'nullable|array',
             'gallery_alt.*' => 'nullable|string|max:255',
         ]);
@@ -205,7 +205,7 @@ class ProjectController extends Controller
 
         $request->validate([
             'images'   => 'required|array|max:20',
-            'images.*' => 'file|mimes:jpg,jpeg,png,webp|max:10240',
+            'images.*' => 'file|mimes:jpg,jpeg,png,webp,pdf|max:10240',
         ]);
 
         $currentMax = $project->images()->max('sort_order') ?? 0;
@@ -287,15 +287,28 @@ class ProjectController extends Controller
         int $sortOrder,
         ?string $altText = null
     ): void {
-        $result = $this->optimizer->optimizeGallery($file);
+        $extension = strtolower($file->getClientOriginalExtension());
 
-        $project->images()->create([
-            'image_path'     => $result['path'],
-            'thumbnail_path' => $result['thumbnail'],
-            'file_type'      => 'image',
-            'sort_order'     => $sortOrder,
-            'alt_text'       => $altText ?? $project->title,
-        ]);
+        if ($extension === 'pdf') {
+            $path = $file->store('project-documents', 'public');
+            $project->images()->create([
+                'image_path'     => $path,
+                'thumbnail_path' => null,
+                'file_type'      => 'pdf',
+                'sort_order'     => $sortOrder,
+                'alt_text'       => $altText ?? $project->title,
+                'caption'        => $file->getClientOriginalName(),
+            ]);
+        } else {
+            $result = $this->optimizer->optimizeGallery($file);
+            $project->images()->create([
+                'image_path'     => $result['path'],
+                'thumbnail_path' => $result['thumbnail'],
+                'file_type'      => 'image',
+                'sort_order'     => $sortOrder,
+                'alt_text'       => $altText ?? $project->title,
+            ]);
+        }
     }
 
     /**
