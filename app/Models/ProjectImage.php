@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectImage extends Model
 {
@@ -31,13 +32,27 @@ class ProjectImage extends Model
 
     public function url(): string
     {
-        return asset('storage/' . $this->image_path);
+        $path = ltrim($this->image_path, '/');
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, 8);
+        }
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+        return Storage::disk('r2')->url($path);
     }
 
     public function thumbnailUrl(): string
     {
         if ($this->thumbnail_path) {
-            return asset('storage/' . $this->thumbnail_path);
+            $path = ltrim($this->thumbnail_path, '/');
+            if (str_starts_with($path, 'storage/')) {
+                $path = substr($path, 8);
+            }
+            if (filter_var($path, FILTER_VALIDATE_URL)) {
+                return $path;
+            }
+            return Storage::disk('r2')->url($path);
         }
         return $this->url();
     }

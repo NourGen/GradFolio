@@ -184,9 +184,9 @@ class ProjectController extends Controller
 
         // Delete all gallery images (including thumbnails)
         foreach ($project->images as $image) {
-            Storage::disk('public')->delete($image->image_path);
+            Storage::disk('r2')->delete($image->image_path);
             if ($image->thumbnail_path) {
-                Storage::disk('public')->delete($image->thumbnail_path);
+                Storage::disk('r2')->delete($image->thumbnail_path);
             }
         }
 
@@ -224,10 +224,10 @@ class ProjectController extends Controller
         $project = $image->project;
         abort_if(auth()->id() !== $project->portfolio->user_id, 403);
 
-        Storage::disk('public')->delete($image->image_path);
+        Storage::disk('r2')->delete($image->image_path);
 
         if ($image->thumbnail_path) {
-            Storage::disk('public')->delete($image->thumbnail_path);
+            Storage::disk('r2')->delete($image->thumbnail_path);
         }
 
         $image->delete();
@@ -290,7 +290,7 @@ class ProjectController extends Controller
         $extension = strtolower($file->getClientOriginalExtension());
 
         if ($extension === 'pdf') {
-            $path = $file->store('project-documents', 'public');
+            $path = $file->store('project-documents', 'r2');
             $project->images()->create([
                 'image_path'     => $path,
                 'thumbnail_path' => null,
@@ -320,10 +320,10 @@ class ProjectController extends Controller
             return;
         }
 
-        Storage::disk('public')->delete($path);
+        Storage::disk('r2')->delete($path);
 
         $filename = basename($path);
-        Storage::disk('public')->delete('project-covers/thumbnails/' . $filename);
+        Storage::disk('r2')->delete('project-covers/thumbnails/' . $filename);
     }
 
     /**

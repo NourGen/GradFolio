@@ -37,21 +37,21 @@ class ProjectController extends Controller
     {
         // Delete cover image
         if ($project->cover_image_path) {
-            Storage::disk('public')->delete($project->cover_image_path);
+            Storage::disk('r2')->delete($project->cover_image_path);
         }
 
         // Delete all gallery images (including thumbnails)
         foreach ($project->images as $image) {
-            Storage::disk('public')->delete($image->image_path);
+            Storage::disk('r2')->delete($image->image_path);
             if ($image->thumbnail_path) {
-                Storage::disk('public')->delete($image->thumbnail_path);
+                Storage::disk('r2')->delete($image->thumbnail_path);
             }
         }
 
         // Delete the whole project folder
         if ($project->portfolio) {
             $folder = 'project-files/' . $project->portfolio->user_id . '/' . $project->id;
-            Storage::disk('public')->deleteDirectory($folder);
+            Storage::disk('r2')->deleteDirectory($folder);
         }
 
         $project->delete();

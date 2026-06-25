@@ -8,8 +8,8 @@
     <aside class="dashboard-sidebar" id="dashboard-sidebar">
         <div class="sidebar-profile">
             <div class="sidebar-avatar">
-                @if($portfolio->profile_picture_path)
-                    <img src="{{ asset('storage/' . $portfolio->profile_picture_path) }}" alt="Profile">
+                @if($portfolio->profilePictureUrl())
+                    <img src="{{ $portfolio->profilePictureUrl() }}" alt="Profile">
                 @else
                     <div class="avatar-placeholder">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
                 @endif

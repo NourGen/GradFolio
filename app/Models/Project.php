@@ -53,14 +53,20 @@ class Project extends Model
      */
     public function coverUrl(): ?string
     {
-        if ($this->cover_image_path && Storage::disk('public')->exists($this->cover_image_path)) {
-            return asset('storage/' . $this->cover_image_path);
+        if ($this->cover_image_path) {
+            $path = ltrim($this->cover_image_path, '/');
+            if (str_starts_with($path, 'storage/')) {
+                $path = substr($path, 8);
+            }
+            if (Storage::disk('r2')->exists($path)) {
+                return Storage::disk('r2')->url($path);
+            }
         }
 
         // Fall back to first gallery image
         $first = $this->images()->where('file_type', 'image')->first();
         if ($first) {
-            return asset('storage/' . $first->image_path);
+            return $first->url();
         }
 
         return null;
