@@ -1,0 +1,100 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2b1810"/>
+      <stop offset="55%" stop-color="#1c100a"/>
+      <stop offset="100%" stop-color="#120a06"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8a35c"/>
+      <stop offset="100%" stop-color="#c9701f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#e8a35c" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e8a35c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <!-- dotted texture top right -->
+  <g fill="#e8a35c" opacity="0.35">
+    <circle cx="1150" cy="120" r="2"/><circle cx="1190" cy="150" r="2"/><circle cx="1230" cy="110" r="2"/>
+    <circle cx="1270" cy="160" r="2"/><circle cx="1310" cy="120" r="2"/><circle cx="1350" cy="170" r="2"/>
+    <circle cx="1390" cy="130" r="2"/><circle cx="1430" cy="180" r="2"/><circle cx="1470" cy="140" r="2"/>
+    <circle cx="1510" cy="190" r="2"/><circle cx="1550" cy="150" r="2"/>
+    <circle cx="1180" cy="220" r="2"/><circle cx="1260" cy="240" r="2"/><circle cx="1340" cy="260" r="2"/>
+    <circle cx="1420" cy="280" r="2"/><circle cx="1500" cy="300" r="2"/><circle cx="1200" cy="320" r="2"/>
+    <circle cx="1300" cy="340" r="2"/><circle cx="1400" cy="360" r="2"/><circle cx="1500" cy="380" r="2"/>
+  </g>
+
+  <!-- top nav bar -->
+  <text x="80" y="70" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#f3d9b8">Ahmed Fathy</text>
+  <text x="80" y="92" font-family="Arial" font-size="14" fill="#caa57a" letter-spacing="2">GRAPHIC DESIGNER &amp; DIGITAL MARKETER</text>
+
+  <g font-family="Arial" font-size="16" fill="#e9c79b">
+    <text x="1140" y="65">Home</text>
+    <text x="1230" y="65">About</text>
+    <text x="1310" y="65">Work</text>
+    <text x="1390" y="65">Skills</text>
+    <text x="1470" y="65">Contact</text>
+  </g>
+  <circle cx="850" cy="60" r="22" fill="none" stroke="#e8a35c" stroke-width="1.5"/>
+  <circle cx="850" cy="60" r="7" fill="#e8a35c"/>
+
+  <!-- HELLO I'M -->
+  <rect x="80" y="220" width="34" height="2" fill="#e8a35c"/>
+  <text x="124" y="227" font-family="Arial" font-size="15" letter-spacing="3" fill="#e8a35c" font-weight="bold">HELLO, I'M</text>
+
+  <!-- avatar circle -->
+  <circle cx="150" cy="330" r="60" fill="#3a2418" stroke="#e8a35c" stroke-width="3"/>
+  <text x="150" y="338" font-family="Arial" font-size="22" fill="#e8a35c" text-anchor="middle" font-weight="bold">AF</text>
+
+  <!-- Name -->
+  <text x="240" y="350" font-family="Georgia, serif" font-size="78" font-weight="bold" fill="#f7e6cf">Ahmed Fathy</text>
+
+  <!-- role line with accent box like behance -->
+  <rect x="80" y="400" width="430" height="56" fill="#0c0805"/>
+  <text x="100" y="438" font-family="Arial" font-size="28" font-weight="bold" fill="#f3d9b8" letter-spacing="4">GRAPHIC DESIGNER</text>
+
+  <text x="80" y="500" font-family="Arial" font-size="20" fill="#d8b990">
+    مصمم جرافيك ومسوّق رقمي، شغوف ببناء هوية بصرية قوية
+  </text>
+  <text x="80" y="530" font-family="Arial" font-size="20" fill="#d8b990">
+    وتقديم حلول إبداعية تحقق نتائج فعلية للعميل.
+  </text>
+
+  <!-- buttons -->
+  <rect x="80" y="570" width="170" height="56" rx="28" fill="url(#accent)"/>
+  <text x="165" y="604" font-family="Arial" font-size="17" font-weight="bold" fill="#2b1810" text-anchor="middle">View My Work</text>
+
+  <rect x="270" y="570" width="180" height="56" rx="28" fill="none" stroke="#caa57a" stroke-width="1.5"/>
+  <text x="360" y="604" font-family="Arial" font-size="17" fill="#f3d9b8" text-anchor="middle">Download CV</text>
+
+  <rect x="470" y="570" width="170" height="56" rx="28" fill="none" stroke="#caa57a" stroke-width="1.5"/>
+  <text x="555" y="604" font-family="Arial" font-size="17" fill="#f3d9b8" text-anchor="middle">Get In Touch</text>
+
+  <!-- stats cards right (merged behance highlights) -->
+  <g>
+    <rect x="950" y="220" width="560" height="120" rx="16" fill="#23150c" stroke="#3d2a1c"/>
+    <text x="980" y="270" font-family="Georgia, serif" font-size="40" font-weight="bold" fill="#e8a35c">50+</text>
+    <text x="980" y="300" font-family="Arial" font-size="16" fill="#cdb190">Projects completed on Behance</text>
+  </g>
+  <g>
+    <rect x="950" y="360" width="560" height="120" rx="16" fill="#23150c" stroke="#3d2a1c"/>
+    <text x="980" y="410" font-family="Georgia, serif" font-size="40" font-weight="bold" fill="#e8a35c">6+</text>
+    <text x="980" y="440" font-family="Arial" font-size="16" fill="#cdb190">Core skills: branding, UI, social design</text>
+  </g>
+  <g>
+    <rect x="950" y="500" width="560" height="120" rx="16" fill="#23150c" stroke="#3d2a1c"/>
+    <text x="980" y="550" font-family="Georgia, serif" font-size="40" font-weight="bold" fill="#e8a35c">10K+</text>
+    <text x="980" y="580" font-family="Arial" font-size="16" fill="#cdb190">Profile &amp; project views</text>
+  </g>
+
+  <!-- footer location/contact strip -->
+  <rect x="0" y="800" width="1600" height="100" fill="#0c0805"/>
+  <text x="80" y="845" font-family="Arial" font-size="16" fill="#cdb190">Cairo, Egypt — Available for Freelance &amp; Fulltime</text>
+  <text x="80" y="872" font-family="Arial" font-size="16" fill="#e8a35c">behance.net/AhmedFathy00   |   freelancer.com/u/ahmedfathy0056FA</text>
+  <text x="1520" y="858" font-family="Arial" font-size="16" fill="#cdb190" text-anchor="end">Logo • Branding • Social Media Design</text>
+</svg>
