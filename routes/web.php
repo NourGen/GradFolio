@@ -26,17 +26,6 @@ Route::get('/p/{slug}', [PublicPortfolioController::class, 'show'])->name('portf
 Route::get('/p/{slug}/cv', [PublicPortfolioController::class, 'downloadCv'])->name('portfolio.cv.download')->middleware('throttle:analytics');
 Route::post('/projects/{project}/click', [PublicPortfolioController::class, 'recordProjectClick'])->name('projects.click')->middleware('throttle:analytics');
 
-// Temporary route to trigger migrations and seeds on Railway
-Route::get('/run-migrations', function () {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-        return "Database migration and seeding completed successfully!<br><br>Output:<br>" . nl2br(\Illuminate\Support\Facades\Artisan::output());
-    } catch (\Exception $e) {
-        return "Error running migrations: " . $e->getMessage();
-    }
-});
-
 // Redirect old routes to new /p/ URLs
 Route::get('/portfolio/{slug}', function (string $slug) {
     return redirect()->route('portfolio.show', ['slug' => $slug], 301);
