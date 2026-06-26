@@ -22,7 +22,7 @@ class ImageOptimizationSystemTest extends TestCase
     {
         parent::setUp();
 
-        Storage::fake('r2');
+        Storage::fake('public');
 
         // Create graduate and portfolio
         $this->graduate = User::factory()->create(['role' => 'graduate']);
@@ -57,8 +57,8 @@ class ImageOptimizationSystemTest extends TestCase
         $this->assertStringEndsWith('.webp', $path1);
 
         // Verify file exists and has correct dimensions (400x400)
-        Storage::disk('r2')->assertExists($path1);
-        $absolutePath1 = Storage::disk('r2')->path($path1);
+        Storage::disk('public')->assertExists($path1);
+        $absolutePath1 = Storage::disk('public')->path($path1);
         [$width1, $height1] = getimagesize($absolutePath1);
         $this->assertEquals(400, $width1);
         $this->assertEquals(400, $height1);
@@ -77,10 +77,10 @@ class ImageOptimizationSystemTest extends TestCase
         $this->assertNotEquals($path1, $path2);
 
         // Assert file 1 is cleaned up and deleted to prevent orphaned files
-        Storage::disk('r2')->assertMissing($path1);
-        Storage::disk('r2')->assertExists($path2);
+        Storage::disk('public')->assertMissing($path1);
+        Storage::disk('public')->assertExists($path2);
 
-        $absolutePath2 = Storage::disk('r2')->path($path2);
+        $absolutePath2 = Storage::disk('public')->path($path2);
         [$width2, $height2] = getimagesize($absolutePath2);
         $this->assertEquals(400, $width2);
         $this->assertEquals(400, $height2);
@@ -117,24 +117,24 @@ class ImageOptimizationSystemTest extends TestCase
         $this->assertStringEndsWith('.webp', $coverPath);
 
         // Assert cover and cover thumbnail exist on disk
-        Storage::disk('r2')->assertExists($coverPath);
+        Storage::disk('public')->assertExists($coverPath);
         $thumbPath = 'project-covers/thumbnails/' . basename($coverPath);
-        Storage::disk('r2')->assertExists($thumbPath);
+        Storage::disk('public')->assertExists($thumbPath);
 
         // Verify cover dimensions (exactly 1200x675 - aspect ratio 16:9)
-        [$wCover, $hCover] = getimagesize(Storage::disk('r2')->path($coverPath));
+        [$wCover, $hCover] = getimagesize(Storage::disk('public')->path($coverPath));
         $this->assertEquals(1200, $wCover);
         $this->assertEquals(675, $hCover);
 
         // Verify thumbnail dimensions (exactly 400x225)
-        [$wThumb, $hThumb] = getimagesize(Storage::disk('r2')->path($thumbPath));
+        [$wThumb, $hThumb] = getimagesize(Storage::disk('public')->path($thumbPath));
         $this->assertEquals(400, $wThumb);
         $this->assertEquals(225, $hThumb);
 
         // Delete the project and assert that both files are deleted
         $this->delete(route('dashboard.projects.destroy', $project->id));
-        Storage::disk('r2')->assertMissing($coverPath);
-        Storage::disk('r2')->assertMissing($thumbPath);
+        Storage::disk('public')->assertMissing($coverPath);
+        Storage::disk('public')->assertMissing($thumbPath);
     }
 
     /**
@@ -168,23 +168,23 @@ class ImageOptimizationSystemTest extends TestCase
         $this->assertStringStartsWith('project-gallery/', $imagePath);
         $this->assertStringStartsWith('project-gallery/thumbnails/', $thumbPath);
 
-        Storage::disk('r2')->assertExists($imagePath);
-        Storage::disk('r2')->assertExists($thumbPath);
+        Storage::disk('public')->assertExists($imagePath);
+        Storage::disk('public')->assertExists($thumbPath);
 
         // Verify scaled dimension (width should scale to 1600, height preserves 2:1 ratio and becomes 800)
-        [$wMain, $hMain] = getimagesize(Storage::disk('r2')->path($imagePath));
+        [$wMain, $hMain] = getimagesize(Storage::disk('public')->path($imagePath));
         $this->assertEquals(1600, $wMain);
         $this->assertEquals(800, $hMain);
 
         // Verify thumbnail dimensions (exactly 300x300 - square center crop)
-        [$wThumb, $hThumb] = getimagesize(Storage::disk('r2')->path($thumbPath));
+        [$wThumb, $hThumb] = getimagesize(Storage::disk('public')->path($thumbPath));
         $this->assertEquals(300, $wThumb);
         $this->assertEquals(300, $hThumb);
 
         // Delete single image and assert both files are deleted
         $this->delete(route('dashboard.projects.images.destroy', $galleryImage->id));
-        Storage::disk('r2')->assertMissing($imagePath);
-        Storage::disk('r2')->assertMissing($thumbPath);
+        Storage::disk('public')->assertMissing($imagePath);
+        Storage::disk('public')->assertMissing($thumbPath);
     }
 
     /**

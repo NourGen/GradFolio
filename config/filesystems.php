@@ -60,45 +60,6 @@ return [
             'report' => false,
         ],
 
-        // Cloudflare R2 Public Storage (falls back to local public if no credentials set)
-        'r2' => env('AWS_ACCESS_KEY_ID') ? [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION', 'auto'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => true,
-            'report' => true,
-        ] : [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
-            'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
-        ],
-
-        // Cloudflare R2 Private Storage (falls back to local private if no credentials set)
-        'r2_private' => env('AWS_ACCESS_KEY_ID') ? [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION', 'auto'),
-            'bucket' => env('AWS_BUCKET'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => true,
-            'report' => true,
-        ] : [
-            'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'throw' => false,
-            'report' => false,
-        ],
-
         // Private disk for secure CV/document storage (not web-accessible)
         'private' => [
             'driver' => 'local',

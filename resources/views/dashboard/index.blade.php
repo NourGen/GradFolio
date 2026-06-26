@@ -8,8 +8,8 @@
     <aside class="dashboard-sidebar" id="dashboard-sidebar">
         <div class="sidebar-profile">
             <div class="sidebar-avatar">
-                @if($portfolio->profilePictureUrl())
-                    <img src="{{ $portfolio->profilePictureUrl() }}" alt="Profile">
+                @if($portfolio->profile_picture_path)
+                    <img src="{{ asset('storage/' . $portfolio->profile_picture_path) }}" alt="Profile">
                 @else
                     <div class="avatar-placeholder">{{ strtoupper(substr(auth()->user()->name, 0, 2)) }}</div>
                 @endif
@@ -60,8 +60,8 @@
             {{-- Profile Picture --}}
             <div class="dash-picture-row">
                 <div class="dash-picture-preview">
-                    @if($portfolio->profilePictureUrl())
-                        <img src="{{ $portfolio->profilePictureUrl() }}"
+                    @if($portfolio->profile_picture_path)
+                        <img src="{{ asset('storage/' . $portfolio->profile_picture_path) }}"
                              alt="Profile" class="dash-avatar-img" id="avatar-preview-img">
                     @else
                         <div class="dash-avatar-placeholder" id="avatar-preview-placeholder">

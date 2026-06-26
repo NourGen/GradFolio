@@ -81,14 +81,14 @@ class PublicPortfolioController extends Controller
             ->firstOrFail();
         $this->authorize('view', $portfolio);
 
-        if (!$portfolio->cv_path || !Storage::disk('r2_private')->exists($portfolio->cv_path)) {
+        if (!$portfolio->cv_path || !Storage::disk('private')->exists($portfolio->cv_path)) {
             abort(404, 'CV not found.');
         }
 
         // Record CV Download
         $this->recordCvDownload($request, $portfolio);
 
-        return Storage::disk('r2_private')->download(
+        return Storage::disk('private')->download(
             $portfolio->cv_path,
             $portfolio->user->name . '_CV.pdf'
         );

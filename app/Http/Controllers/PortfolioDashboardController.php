@@ -62,7 +62,7 @@ class PortfolioDashboardController extends Controller
 
         // Delete old picture
         if ($portfolio->profile_picture_path) {
-            Storage::disk('r2')->delete($portfolio->profile_picture_path);
+            Storage::disk('public')->delete($portfolio->profile_picture_path);
         }
 
         $path = $optimizer->optimizeProfile($request->file('profile_picture'));
@@ -102,10 +102,10 @@ class PortfolioDashboardController extends Controller
 
         // Delete old CV
         if ($portfolio->cv_path) {
-            Storage::disk('r2_private')->delete($portfolio->cv_path);
+            Storage::disk('private')->delete($portfolio->cv_path);
         }
 
-        $path = $request->file('cv')->store('cvs', 'r2_private');
+        $path = $request->file('cv')->store('cvs', 'private');
         $portfolio->update(['cv_path' => $path]);
 
         return back()->with('success', 'CV uploaded successfully!');

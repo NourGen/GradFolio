@@ -306,8 +306,8 @@ body.light-mode .meta-badge {
                     <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="grad-card" id="grad-card-{{ $portfolio->id }}">
                         <div class="grad-card-header">
                             <div class="grad-avatar">
-                                @if($portfolio->profilePictureUrl())
-                                    <img src="{{ $portfolio->profilePictureUrl() }}"
+                                @if($portfolio->profile_picture_path)
+                                    <img src="{{ asset('storage/' . $portfolio->profile_picture_path) }}"
                                          alt="{{ $portfolio->user->name }}" loading="lazy">
                                 @else
                                     <div class="grad-avatar-placeholder">

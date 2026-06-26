@@ -34,7 +34,7 @@ class ImageOptimizer
         $encoded = $image->encode(new WebpEncoder(80));
 
         // Store to public disk
-        Storage::disk('r2')->put($storagePath, (string) $encoded);
+        Storage::disk('public')->put($storagePath, (string) $encoded);
 
         return $storagePath;
     }
@@ -57,12 +57,12 @@ class ImageOptimizer
         // 1. Process Cover (1200x675 px - aspect ratio 16:9)
         $image->cover(1200, 675);
         $encoded = $image->encode(new WebpEncoder(80));
-        Storage::disk('r2')->put($storagePath, (string) $encoded);
+        Storage::disk('public')->put($storagePath, (string) $encoded);
 
         // 2. Process Cover Thumbnail (400x225 px - aspect ratio 16:9)
         $thumbImage->cover(400, 225);
         $encodedThumb = $thumbImage->encode(new WebpEncoder(80));
-        Storage::disk('r2')->put($thumbStoragePath, (string) $encodedThumb);
+        Storage::disk('public')->put($thumbStoragePath, (string) $encodedThumb);
 
         return [
             'path' => $storagePath,
@@ -90,12 +90,12 @@ class ImageOptimizer
             $image->scale(width: 1600);
         }
         $encoded = $image->encode(new WebpEncoder(80));
-        Storage::disk('r2')->put($storagePath, (string) $encoded);
+        Storage::disk('public')->put($storagePath, (string) $encoded);
 
         // 2. Process Gallery Thumbnail (300x300 px - square center crop)
         $thumbImage->cover(300, 300);
         $encodedThumb = $thumbImage->encode(new WebpEncoder(80));
-        Storage::disk('r2')->put($thumbStoragePath, (string) $encodedThumb);
+        Storage::disk('public')->put($thumbStoragePath, (string) $encodedThumb);
 
         return [
             'path' => $storagePath,

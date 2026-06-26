@@ -26,15 +26,15 @@
     <meta property="og:title" content="{{ $portfolio->user->name }} — Portfolio">
     <meta property="og:description" content="{{ Str::limit(strip_tags($portfolio->bio ?? $portfolio->headline), 155) }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    @if($portfolio->profilePictureUrl())
-        <meta property="og:image" content="{{ $portfolio->profilePictureUrl() }}">
+    @if($portfolio->profile_picture_path)
+        <meta property="og:image" content="{{ asset('storage/' . $portfolio->profile_picture_path) }}">
     @endif
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $portfolio->user->name }} — Portfolio">
     <meta name="twitter:description" content="{{ Str::limit(strip_tags($portfolio->bio ?? $portfolio->headline), 155) }}">
-    @if($portfolio->profilePictureUrl())
-        <meta name="twitter:image" content="{{ $portfolio->profilePictureUrl() }}">
+    @if($portfolio->profile_picture_path)
+        <meta name="twitter:image" content="{{ asset('storage/' . $portfolio->profile_picture_path) }}">
     @endif
 
     <style>
@@ -213,8 +213,8 @@
           <div class="hero-content">
             <p class="eyebrow">Hello, I'm</p>
             <div class="hero-name-wrap" style="display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.5rem); margin-bottom: 1rem; flex-wrap: wrap;">
-              @if($portfolio->profilePictureUrl())
-                <img src="{{ $portfolio->profilePictureUrl() }}" 
+              @if($portfolio->profile_picture_path)
+                <img src="{{ asset('storage/' . $portfolio->profile_picture_path) }}" 
                      class="avatar-icon" 
                      style="width: clamp(65px, 8vw, 85px); height: clamp(65px, 8vw, 85px); border-radius: 50%; object-fit: cover; border: 3px solid rgba(250, 247, 242, 0.28); box-shadow: var(--shadow-md);" 
                      alt="{{ $portfolio->user->name }}" />

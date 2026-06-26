@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
 
 class Portfolio extends Model
 {
@@ -86,47 +85,5 @@ class Portfolio extends Model
     public function techStackArray(): array
     {
         return array_map('trim', explode(',', $this->tech_stack ?? ''));
-    }
-
-    /**
-     * Get the public URL for the profile picture (via R2 or local fallback).
-     */
-    public function profilePictureUrl(): ?string
-    {
-        if (!$this->profile_picture_path) {
-            return null;
-        }
-
-        $path = ltrim($this->profile_picture_path, '/');
-        if (str_starts_with($path, 'storage/')) {
-            $path = substr($path, 8);
-        }
-
-        if (filter_var($path, FILTER_VALIDATE_URL)) {
-            return $path;
-        }
-
-        return Storage::disk('r2')->url($path);
-    }
-
-    /**
-     * Get the URL/path for the CV (via R2 private disk or local private fallback).
-     */
-    public function cvUrl(): ?string
-    {
-        if (!$this->cv_path) {
-            return null;
-        }
-
-        $path = ltrim($this->cv_path, '/');
-        if (str_starts_with($path, 'storage/')) {
-            $path = substr($path, 8);
-        }
-
-        if (filter_var($path, FILTER_VALIDATE_URL)) {
-            return $path;
-        }
-
-        return Storage::disk('r2_private')->url($path);
     }
 }

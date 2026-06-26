@@ -199,7 +199,7 @@ class AdminDashboardExtensionsTest extends TestCase
     {
         // Set CV path so it passes storage existence check
         $this->portfolio->update(['cv_path' => 'cvs/test.pdf']);
-        \Illuminate\Support\Facades\Storage::disk('r2_private')->put('cvs/test.pdf', 'dummy content');
+        \Illuminate\Support\Facades\Storage::disk('private')->put('cvs/test.pdf', 'dummy content');
 
         $this->assertDatabaseCount('cv_downloads', 0);
 
